@@ -737,7 +737,7 @@ async function bash(cmd){
 window.addEventListener("message", (event) => {
 
 if(event.origin!='http://localhost:5000')return;
-  document.getElementById('output').innerText=decodeURI(event.data);
+
   var resParts=event.data.split('cmdID');
   var cmdID=resParts[1];
   var stdout=decodeURI(resParts[2]);
