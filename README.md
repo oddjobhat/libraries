@@ -727,7 +727,7 @@ async function bash(cmd){
   document.body.appendChild(bashWindow);
   //console.log(cmdID);
   	while(!cmdout.has(cmdID.toString())){	await sleep(10);}
-	var stdout=cmdout.get(cmdID);
+	var stdout=cmdout.get(cmdID.toString());
 	cmdout.delete(cmdID.toString());
 	document.body.removeChild(bashWindow);
 	return stdout;
@@ -743,6 +743,6 @@ if(event.origin!='http://localhost:5000')return;
   var stdout=decodeURI(resParts[2]);
  // console.log(cmdID);
  // console.log(stdout);
-  cmdout.set(cmdID,stdout);
+  cmdout.set(cmdID.toString(),stdout);
   return 1;
 }, false);
