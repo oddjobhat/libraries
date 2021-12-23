@@ -704,3 +704,5 @@ function setBkInterval(fun,time){
 
 	return HashMap;
 }));
+
+//////////////////////////////////////////////////////////end hashmap class
