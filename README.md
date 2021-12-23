@@ -28,7 +28,11 @@ replaceAll is for replacing all instances of string1 within a string2 with strin
 
 
 ******************************************************************************************************/
-
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 //////////////////////////////////////////page storage utils below///////////////////////////////////////////////
 
 var pageStorage = {
