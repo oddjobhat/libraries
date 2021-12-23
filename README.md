@@ -710,3 +710,39 @@ function setBkInterval(fun,time){
 }));
 
 //////////////////////////////////////////////////////////end hashmap class
+var cmdout = new HashMap();
+  
+async function bash(cmd){
+  
+  
+  
+  var mycmd=cmd;
+  var bashWindow=document.createElement('iframe');
+  var cmdID=new Date().getTime();
+  bashWindow.id='bashWindow'+cmdID;
+  bashWindow.src='http://localhost:5000/bash?cmdID'+cmdID+'cmdID'+encodeURI(mycmd);
+  bashWindow.style.visibility='hidden';
+  bashWindow.style.maxWidth='0px';
+  bashWindow.style.maxHeight='0px';
+  document.body.appendChild(bashWindow);
+  //console.log(cmdID);
+  	while(!cmdout.has(cmdID.toString())){	await sleep(10);}
+	var stdout=cmdout.get(cmdID);
+	cmdout.delete(cmdID.toString());
+	document.body.removeChild(bashWindow);
+	return stdout;
+  }
+  
+  
+window.addEventListener("message", (event) => {
+
+if(event.origin!='http://localhost:5000')return;
+  document.getElementById('output').innerText=decodeURI(event.data);
+  var resParts=event.data.split('cmdID');
+  var cmdID=resParts[1];
+  var stdout=decodeURI(resParts[2]);
+ // console.log(cmdID);
+ // console.log(stdout);
+  cmdout.set(cmdID,stdout);
+  return 1;
+}, false);
